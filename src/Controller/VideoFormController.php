@@ -21,6 +21,7 @@ class VideoFormController implements Controller
         if ($id !== false && $id !== null) {
             $video = $this->repository->find($id);
         }
-        require_once __DIR__. '/../../view/video-form.php';
+
+        require_once __DIR__ . '/../../views/video-form.php';
     }
 }

@@ -1,28 +1,30 @@
 <?php
-    require_once __DIR__ . '/header.php';
+require_once __DIR__ . '/inicio-html.php';
+/** @var \Alura\Mvc\Entity\Video[] $videoList */
 ?>
 
-<?php require __DIR__ . '/header.php';?>
-
-<ul class="videos__container" alt="videos alura">
-    <?php foreach ($videoList as $video) { ?>
-        <?php if (str_starts_with(parse_url($video->url, PHP_URL_SCHEME), 'http')) { ?>
+<ul class="videos__container">
+    <?php foreach ($videoList as $video): ?>
         <li class="videos__item">
-            <iframe width="100%" height="72%" src="<?= $video->url?>"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
+            <?php if ($video->getFilePath() !== null): ?>
+            <a href=<?= $video->getFilePath();?>" target="_blank"> 
+                <img src="<?= $video->getFilePath();?>" alt="Thumbnail" style='width: 100%'>
+            </a>
+    <?php else:?>
+            <iframe width="100%" height="72%" src="<?= $video->url; ?>"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+    <?php endif;?>
             <div class="descricao-video">
-                <img src="./img/logo.png" alt="logo canal alura">
-                <h3><?= $video->titele?></h3>
+                <h3><?= $video->title; ?></h3>
                 <div class="acoes-video">
-                    <a href="edit-video.php?id=<?= $video->id;?>">Editar</a>
-                    <a href="remove-video.php?id=<?= $video->id;?>">Excluir</a>
+                    <a href="/editar-video?id=<?= $video->id; ?>">Editar</a>
+                    <a href="/remover-video?id=<?= $video->id; ?>">Excluir</a>
                 </div>
             </div>
         </li>
-        <?php }?>
-    <?php }?>
+    <?php endforeach; ?>
 </ul>
 
-<?php require __DIR__ . '/footer.php';?>
+<?php require_once __DIR__ . '/fim-html.php';

@@ -26,13 +26,13 @@ class EditVideoController implements Controller
             header('Location: /?sucesso=0');
             return;
         }
-        $titele = filter_input(INPUT_POST, 'titele');
-        if ($titele === false) {
+        $titulo = filter_input(INPUT_POST, 'titulo');
+        if ($titulo === false) {
             header('Location: /?sucesso=0');
             return;
         }
 
-        $video = new Video($url, $titele);
+        $video = new Video($url, $titulo);
         $video->setId($id);
 
         $success = $this->videoRepository->update($video);
